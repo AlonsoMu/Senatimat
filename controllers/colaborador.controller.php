@@ -12,7 +12,7 @@ if (isset($_POST['operacion'])){
     if ($data){
         $numeroFila = 1;
         $datosColaborador = '';
-        $botonNulo = " <a href='#' class='btn btn-sm btn-warning' title='No tiene fotografía'><i class='bi bi-eye-slash-fill'></i></a>";
+        $botonNulo = " <a href='#' class='btn btn-sm btn-warning' title='No tiene documento'><i class='bi bi-eye-slash-fill'></i></a>";
         
         foreach($data as $registro){
             $datosColaborador = $registro['apellidos'] . ' ' . $registro['nombres'];
@@ -36,7 +36,7 @@ if (isset($_POST['operacion'])){
             if ($registro['cv'] == ''){
                 echo $botonNulo;
             }else{
-                echo " <a href='../views/img/fotografias/{$registro['cv']}' data-lightbox='{$registro['idcolaborador']}' data-title='{$datosColaborador}' class='btn btn-sm btn-warning'><i class='bi bi-eye-fill'></i></a>";
+                echo " <a href='../views/pdf/documento/{$registro['cv']}' data-lightbox='{$registro['idcolaborador']}' data-title='{$datosColaborador}' class='btn btn-sm btn-warning'><i class='bi bi-eye-fill'></i></a>";
             }
 
             //La tercera parte a RENDERIZAR, cierre de la fila
@@ -67,7 +67,7 @@ if (isset($_POST['operacion'])){
       //Vamos a verificar si la vista nos envió una FOTOGRAFIA
       if (isset($_FILES['cv'])){
   
-        $rutaDestino = '../views/img/fotografias/'; //Carpeta
+        $rutaDestino = '../views/pdf/documento/'; //Carpeta
         $fechaActual = date('c'); //C = Complete, AÑO/MES/DIA/HORA/MINUTO/SEGUNDO
         $nombreArchivo = sha1($fechaActual) . ".pdf";
         $rutaDestino .= $nombreArchivo;
