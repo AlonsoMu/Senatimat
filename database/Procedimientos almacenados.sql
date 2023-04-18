@@ -72,3 +72,57 @@ END $$
 
 CALL spu_carreras_listar(3);
 
+
+-- LISTA MULTITABLA COLABORADORES
+DELIMITER $$
+CREATE PROCEDURE spu_colaboradores_listar()
+BEGIN
+	SELECT 	COL.idcolaborador,
+				COL.apellidos, COL.nombres,
+				CARG.cargo, SED.sede,
+				COL.telefono, COL.direccion,
+				COL.tipocontrato, COL.cv
+			FROM colaboradores COL
+			INNER JOIN sedes SED ON SED.idsede = COL.idsede
+			INNER JOIN cargos CARG ON CARG.idcargo = COL.idcargo
+			WHERE COL.estado = '1';
+END $$
+
+CALL spu_colaboradores_listar();
+
+
+-- REGISTRAR COLABORADORES
+DELIMITER $$
+CREATE PROCEDURE spu_colaboradores_registrar
+(
+	IN _apellidos		VARCHAR(30),
+	IN _nombres			VARCHAR(30),
+	IN _idcargo			INT,
+	IN _idsede			INT,
+	IN _telefono		CHAR(9),
+	IN _direccion 		VARCHAR(100),
+	IN _tipocontrato	CHAR(1),
+	IN _cv				VARCHAR(100)
+)
+BEGIN
+	IF _cv = '' THEN
+		SET _cv = NULL;
+	END IF;
+	
+	INSERT INTO colaboradores
+	(apellidos, nombres, idcargo, idsede, telefono, direccion, tipocontrato, cv) VALUES
+	(_apellidos, _nombres, _idcargo, _idsede, _telefono, _direccion, _tipocontrato, _cv);
+END $$
+
+CALL spu_colaboradores_registrar('Francia Minaya','Jhon',1,1,'975842565','Jiron Santa Rosa','P','');
+
+-- CARGOS LISTAR
+DELIMITER $$
+CREATE PROCEDURE spu_cargos_listar()
+BEGIN
+	SELECT * FROM cargos ORDER BY 1;
+END $$
+
+CALL spu_cargos_listar();
+
+
