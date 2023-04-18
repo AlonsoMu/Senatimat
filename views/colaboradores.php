@@ -90,7 +90,7 @@
             <div class="row">
               <div class="mb-3 col-md-6">
                 <label for="tipocontrato" class="form-label">Tipo contrato:</label>
-                <select name="escuela" id="tipocontrato" class="form-select form-select-sm">
+                <select name="tipocontrato" id="tipocontrato" class="form-select form-select-sm">
                   <option value="">Seleccione</option>
                   <option value="P">Parcial</option>
                   <option value="C">Completo</option>
@@ -98,7 +98,7 @@
               </div>
               <div class="mb-3 col-md-6">
                 <label for="curriculum" class="form-label">Curriculum Vitae:</label>
-                <input type="file" id="curriculum" accept=".jpg" class="form-control form-control-sm">
+                <input type="file" id="curriculum" accept=".pdf" class="form-control form-control-sm">
               </div>
             </div>
 
@@ -106,7 +106,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-sm btn-primary" id="guardar-estudiante">Guardar</button>
+          <button type="button" class="btn btn-sm btn-primary" id="guardar-colaborador">Guardar</button>
         </div>
       </div>
     </div>
@@ -123,6 +123,9 @@
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     $(document).ready(function (){
@@ -142,7 +145,7 @@
       }
        
       //PARA QUE FUNCIONE LA SELECCION
-      obtenerSedes();
+      //obtenerSedes();
       
 
       function obtenerCargos(){
@@ -158,7 +161,7 @@
         });
         
       }
-      obtenerCargos();
+      //obtenerCargos();
 
       function mostrarColaboradores(){
         $.ajax({
@@ -172,6 +175,62 @@
         });
       }
       mostrarColaboradores();
+
+      function registrarColaborador(){
+        var formData = new FormData();
+
+        formData.append("operacion", "registrar");
+        formData.append("apellidos", $("#apellidos").val());
+        formData.append("nombres", $("#nombres").val());
+        formData.append("idcargo", $("#cargo").val());
+        formData.append("idsede", $("#sede").val());
+        formData.append("telefono", $("#telefono").val());
+        formData.append("direccion", $("#direccion").val());
+        formData.append("tipocontrato", $("#direccion").val());
+        formData.append("cv", $("#curriculum")[0].files[0]);
+
+        $.ajax({
+            url: '../controllers/colaborador.controller.php',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            cache: false,
+            success: function(){
+                $("#formulario-colaboradores")[0].reset();
+                $("#modal-colaboradores").modal("hide");
+                alert("Guardado correctamente");
+          }
+        });
+      }
+
+      function preguntarRegistro(){
+        Swal.fire({
+          icon: 'question',
+          title: 'Colaboradores',
+          text: '¿Está seguro de registrar al colaborador?',
+          footer: 'Desarrollado con PHP',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#3498DB',
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          //Identificando acción del usuario
+          if (result.isConfirmed){
+            registrarColaborador();
+          }
+        });
+      }
+
+      $("#guardar-colaborador").click(preguntarRegistro);
+
+      $("#modal-colaboradores").on("shown.bs.modal", event => {
+        $("#apellidos").focus();
+
+        obtenerSedes();
+        obtenerCargos();
+      });
+
       
     });
     
