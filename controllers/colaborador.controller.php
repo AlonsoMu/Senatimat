@@ -29,14 +29,14 @@ if (isset($_POST['operacion'])){
                 <td>{$registro['tipocontrato']}</td>
                 <td>{$registro['direccion']}</td>
                 <td>
-                    <a href='#' class='btn btn-sm btn-danger'><i class='bi bi-trash3'></i></a>
+                    <a href='#' data-idcolaborador='{$registro['idcolaborador']}' class='btn btn-sm btn-danger eliminar'><i class='bi bi-trash3'></i></a>
                     <a href='#' class='btn btn-sm btn-info'><i class='bi bi-pencil-fill'></i></a>";
             
             //La segunda parte a RENDERIZAR, es el botón VER FOTOGRAFÍA
             if ($registro['cv'] == ''){
                 echo $botonNulo;
             }else{
-                echo " <a href='../views/pdf/documento/{$registro['cv']}' data-lightbox='{$registro['idcolaborador']}' data-title='{$datosColaborador}' class='btn btn-sm btn-warning'><i class='bi bi-eye-fill'></i></a>";
+                echo " <a href='../views/pdf/documento/{$registro['cv']}' data-lightbox='{$registro['idcolaborador']}' data-title='{$datosColaborador}' class='btn btn-sm btn-warning' target='_blank'> <i class='bi bi-eye-fill'></i></a>";
             }
 
             //La tercera parte a RENDERIZAR, cierre de la fila
@@ -82,6 +82,11 @@ if (isset($_POST['operacion'])){
       //PASO 2: Enviar el array al método registrar
       $colaborador->registrarColaborador($datosGuardar);
   
+    }
+    
+    if($_POST['operacion'] == 'eliminar'){
+      $colaborador->eliminarColaborador($_POST['idcolaborador']);
+      
     }
   }
 

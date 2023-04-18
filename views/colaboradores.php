@@ -200,9 +200,11 @@
                 $("#formulario-colaboradores")[0].reset();
                 $("#modal-colaboradores").modal("hide");
                 alert("Guardado correctamente");
+                mostrarColaboradores();
           }
         });
       }
+      
 
       function preguntarRegistro(){
         Swal.fire({
@@ -221,6 +223,25 @@
           }
         });
       }
+
+      $("#tabla-colaboradores tbody").on("click",".eliminar", function(){
+        const idcolaboradorEliminar = $(this).data("idcolaborador");
+        if(confirm("¿Seguro que quieres eliminar?")){
+          $.ajax({
+            url: '../controllers/colaborador.controller.php',
+            type: 'POST',
+            data: {
+              operacion : 'eliminar',
+              idcolaborador : idcolaboradorEliminar
+            },
+            success: function(result){
+              if(result == ""){
+                mostrarColaboradores();
+              }
+            }
+          });
+        }
+      });
 
       $("#guardar-colaborador").click(preguntarRegistro);
 
