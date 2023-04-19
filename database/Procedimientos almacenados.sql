@@ -125,4 +125,25 @@ END $$
 
 CALL spu_cargos_listar();
 
+-- ELIMINAR COLABORADORES
+DELIMITER $$
+CREATE PROCEDURE spu_colaboradores_eliminar(
+IN _idcolaborador 	INT
+)
+BEGIN
+	DELETE FROM colaboradores WHERE idcolaborador = _idcolaborador;
+END $$
 
+
+CALL spu_colaboradores_eliminar();
+
+-- ELIMINAR ESTUDIANTE
+DELIMITER $$
+CREATE PROCEDURE spu_estudiantes_eliminar(
+IN _idestudiante	INT
+)
+BEGIN
+	DELETE FROM estudiantes WHERE idestudiante = _idestudiante;
+END $$
+
+CALL spu_estudiantes_eliminar(16);
