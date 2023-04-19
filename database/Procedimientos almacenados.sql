@@ -146,4 +146,4 @@ BEGIN
 	DELETE FROM estudiantes WHERE idestudiante = _idestudiante;
 END $$
 
-CALL spu_estudiantes_eliminar(16);
+CALL spu_estudiantes_eliminar();

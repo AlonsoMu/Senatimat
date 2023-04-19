@@ -33,7 +33,9 @@
           <th>Telefono</th>
           <th>Tipo Contrato</th>
           <th>Direccion</th>
+          <th>Curriculum</th>
           <th>Operaciones</th>
+
         </tr>
       </thead>
       <tbody>

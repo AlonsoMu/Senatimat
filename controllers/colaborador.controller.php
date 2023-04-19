@@ -17,7 +17,7 @@ if (isset($_POST['operacion'])){
         foreach($data as $registro){
             $datosColaborador = $registro['apellidos'] . ' ' . $registro['nombres'];
 
-            //La primera parte a RENDERIZAR, es lo standard (siempre se muestra)
+            //La primera parte a RENDERIZAR, es lo standard (siempre se muestra) 
             echo "
                 <tr>
                 <td>{$numeroFila}</td>
@@ -28,6 +28,7 @@ if (isset($_POST['operacion'])){
                 <td>{$registro['telefono']}</td>
                 <td>{$registro['tipocontrato']}</td>
                 <td>{$registro['direccion']}</td>
+                <td>{$registro['cv']}</td>
                 <td>
                     <a href='#' data-idcolaborador='{$registro['idcolaborador']}' class='btn btn-sm btn-danger eliminar'><i class='bi bi-trash3'></i></a>
                     <a href='#' class='btn btn-sm btn-info'><i class='bi bi-pencil-fill'></i></a>";
@@ -61,7 +62,7 @@ if (isset($_POST['operacion'])){
         "telefono"      => $_POST['telefono'],
         "direccion"     => $_POST['direccion'],
         "tipocontrato"  => $_POST['tipocontrato'],
-        "cv"    => ''
+        "cv"            => '',
       ];
   
       //Vamos a verificar si la vista nos envió una FOTOGRAFIA
@@ -86,6 +87,12 @@ if (isset($_POST['operacion'])){
     
     if($_POST['operacion'] == 'eliminar'){
       $colaborador->eliminarColaborador($_POST['idcolaborador']);
+      
+      if(isset($_POST['idcolaborador'])){
+        
+        //$colaborador->eliminarColaborador(@unlink('../views/pdf/documento/{$registro['cv']}'));
+        //'../views/pdf/documento/{$registro['cv']}'
+      }
       
     }
   }
