@@ -1,8 +1,9 @@
+
 <!doctype html>
 <html lang="es">
 
 <head>
-  <title>Title</title>
+  <title>Estudiantes</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,11 +23,25 @@
 <body>
   
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
+  <!--<button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-estudiante">
     Launch
-  </button>
+  </button>-->
 
-  <div class="container">
+  <div class="container mt-3">
+    <div class="card">
+      <div class="card-header bg-info text-light">
+        <div class="row">
+          <div class="col-md-6">
+            <strong>ESTUDIANTES</strong>
+          </div>
+          <div class="col-md-6 text-end">
+            <button class="btn btn-success btn-sm" id="abrir-modal" data-bs-toggle="modal" data-bs-target="#modal-estudiante"><i class="bi bi-plus-circle"></i> Agregar estudiante</button>
+            <a href="entrada.php" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i> Volver</a>
+          </div>
+        </div>    
+
+      </div>
+  <div class="card-body">
     <table id="tabla-estudiantes" class="table table-striped table-sm">
       <thead>
         <tr>
@@ -45,6 +60,29 @@
       </tbody>
     </table>
   </div>
+  <div class="card-footer text-end">
+        <a href="#" onclick="confirmLogout()">Cerrar sesión</a>
+    </div>
+
+    <script>
+    function confirmLogout() {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Quieres cerrar sesión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '../controllers/usuario.controller.php?operacion=finalizar';
+        }
+      })
+    }
+    </script>
+
   
   <!-- Modal Body -->
   <div class="modal fade" id="modal-estudiante" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">

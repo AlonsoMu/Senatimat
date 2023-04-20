@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,12 +19,26 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
 <body>
   <!-- Modal trigger button -->
-  <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-colaboradores">
+  <!--<button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modal-colaboradores">
     Formulario Colaboradores
-  </button>
+  </button>-->
 
   <div class="container">
-  <table id="tabla-colaboradores" class="table table-striped table-sm">
+    <div class="card">
+      <div class="card-header bg-primary text-light">
+        <div class="row">
+          <div class="col-md-6">
+            <strong>COLABORADORES</strong>
+          </div>
+          <div class="col-md-6 text-end">
+            <button class="btn btn-success btn-sm" id="abrir-modal" data-bs-toggle="modal" data-bs-target="#modal-colaboradores"><i class="bi bi-plus-circle"></i> Agregar colaborador</button>
+            <a href="entrada.php" class="btn btn-secondary btn-sm"><i class="bi bi-arrow-left"></i> Volver</a>
+          </div>
+        </div> 
+      </div>
+
+  <div class="card-body">
+    <table id="tabla-colaboradores" class="table table-striped table-sm">
       <thead>
         <tr>
           <th>#</th>
@@ -43,6 +59,30 @@
       </tbody>
     </table>
   </div>
+
+
+    <div class="card-footer text-end">
+        <a href="#" onclick="confirmLogout()">Cerrar sesión</a>
+    </div>
+
+    <script>
+    function confirmLogout() {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¿Quieres cerrar sesión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = '../controllers/usuario.controller.php?operacion=finalizar';
+        }
+      })
+    }
+    </script>
 
   <!-- Modal Body -->
   <div class="modal fade" id="modal-colaboradores" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">

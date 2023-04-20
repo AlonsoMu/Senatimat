@@ -147,3 +147,18 @@ BEGIN
 END $$
 
 CALL spu_estudiantes_eliminar();
+
+-- LOGIN USUARIO
+DELIMITER $$
+CREATE PROCEDURE spu_usuarios_login(IN nombreusuario_ VARCHAR(30))
+BEGIN
+	SELECT 	idusuario, nombreusuario, claveacceso,
+				apellidos, nombres, nivelacceso
+	FROM usuarios
+	WHERE nombreusuario = nombreusuario_ AND estado = '1';
+END $$
+
+CALL spu_usuarios_login('INSTRUCTOR');
+
+
+

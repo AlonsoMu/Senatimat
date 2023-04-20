@@ -129,3 +129,38 @@ INSERT INTO colaboradores(apellidos,nombres,telefono,direccion,idcargo,idsede) V
 	('Muñoz Quispe','Alonso','970526015','Gerardo Sotelo',1,1);
 	
 SELECT * FROM colaboradores;
+
+-- ******* SEPTIMA TABLA ********* --
+CREATE TABLE usuarios
+(
+	idusuario	INT 	AUTO_INCREMENT 	PRIMARY KEY,
+	nombreusuario	VARCHAR(50)	NOT NULL,
+	claveacceso	VARCHAR(90)	NOT NULL,
+	apellidos 	VARCHAR(30)	NOT NULL,
+	nombres		VARCHAR(30)	NOT NULL,
+	nivelacceso	CHAR(1)		NOT NULL DEFAULT 'A',
+	estado		CHAR(1)		NOT NULL DEFAULT '1',
+	fecharegistro	DATETIME	NOT NULL DEFAULT NOW(),
+	CONSTRAINT uk_nombreusuario_usa UNIQUE(nombreusuario)
+)ENGINE = INNODB;
+
+INSERT INTO usuarios (nombreusuario, claveacceso, apellidos, nombres) VALUES
+	('INSTRUCTOR', 'TRFINAL', 'Francia Minaya', 'Jhon'),
+	('ALONSO', 'TRFINAL', 'Muñoz Quispe', 'Alonso Enrique');
+
+SELECT * FROM usuarios;
+
+-- Actualizamos con clave encriptada
+UPDATE usuarios SET
+	claveacceso = '$2y$10$en0HAnpRvLt7sShXGldQWu.49OeXP7ApctyHXaE5WfDGneULM2T3C'
+	WHERE idusuario = 1;
+
+UPDATE usuarios SET
+	claveacceso = '$2y$10$dztcCLhGn0UyzwMMayl.megSnnO3Y4XR.kSBQEombu/G3oAeI//fK'
+	WHERE idusuario = 2;
+	
+	
+SELECT * FROM usuarios;
+
+
+
